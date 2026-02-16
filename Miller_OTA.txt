@@ -1,0 +1,12 @@
+.SYM gm1 = 100m ro1 = 5.5k C1 = 40f gm2 = 800m Cc ro2 = 10k CL = 3p
+.NODE 1 Vi Input Voltage
+.NODE 2 Imos1d Internal Current
+.NODE 3 Vmos1d Internal Voltage
+.NODE 4 Imos2d Internal Current
+.NODE 5 Vo Output Voltage
+.EDGE E1 1 2 GM = -gm1
+.EDGE E2 2 3 Z = ro1//(1/(s*C1))//(1/(s*Cc))
+.EDGE E3 3 4 GM = -gm2
+.EDGE E4 4 5 Z = ro2//(1/(s*CL))//(1/(s*Cc))
+.EDGE E5 5 2 GM = s*Cc
+.EDGE E6 3 4 GM = s*Cc
