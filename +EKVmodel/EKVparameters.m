@@ -140,8 +140,154 @@ classdef EKVparameters < handle
         WKP1 = 1e-6 %   Width parameter for mobility profile vs. width (m)
         WKP2 = 0    %   Amplitude parameter for mobility profile vs. width
         WKP3 = 0    %   Span parameter for mobility profile vs. width
-
-
+        AVT = 0     %   Factor for long & wide channel VT0 correction
+        LVT = 1     %   Length for long channel VT0 correction (m)
+        WVT = 1     %   Width for wide channel VT0 correction (m)
+        AGAM = 0    %   Factor for long & wide channel GAMMA correction
+        LGAM = 1    %   Length for long channel GAMMA correction (m)
+        WGAM = 1    %   Width for wide channel GAMMA correction (m)
+        NFVTA = 0   %   Number of fingers factor for VT0 dependence on NF
+        NFVTB = 10e3%   Amplitude parameter for NFVTA
+        LWR = 0     %   Length scaling of WR (m^2)
+        LQWR = 0    %   Length scaling of QWR (m)
+        LNWR = 0    %   Length scaling of NWR (m)
+        LDPHIEDGE = 0 % Length scaling of DPHIEDGE (m)
+        WLR = 0     %   Width scaling of LR (m^2)
+        WQLR = 0    %   Width scaling of QLR (m)
+        WNLR = 0    %   Width scaling of NLR (m)
+        WUCRIT = 0  %   Width scaling of UCRIT (m)
+        WLAMBDA = 0 %   Width scaling of LAMBDA (m)
+        WETAD = 0   %   Width scaling of ETAD (m)
+        WE0 = 0     %   Width scaling of E0 (m)
+        WE1 = 0     %   Width scaling of E1 (m)
+        WRLX = 0    %   Width scaling of RLX (m)
+        WUCEX = 0   %   Width scaling of UCEX (m)
+        WDPHIEDGE = 0 % Width scaling of DPHIEDGE (m)
+        WLDPHIEDGE = 0 % Area scaling of DPHIEDGE (m^2)
+        WLDGAMMAEDGE = 0 % Area scaling of DGAMMAEDGE (m^2)
+        %  Temperature Parameters
+        TCV = 600e-6 %  Linear temperature dependence of VT0 (V/C)
+        BEX = -1.5  %   Exponential temperature dependence of KP
+        TETA = -0.9e-3 % Linear temperature dependence of ETA (1/C)
+        TE0EX = 0.5 %   Exponential temperature dependence of E0
+        TE1EX = 0.5 %   Exponential temperature dependence of E1
+        UCEX = 1.5  %   Exponential temperature dependence of UCRIT
+        TLAMBDA = 0 %   Linear temperature dependence of LAMBDA
+        IBBT = 800e-6 % Linear temperature dependence of IBB
+        TCVL = 0    %   Length dependence of TCV (m*V/C)
+        TCVW = 0    %   Width dependence of TCV (m*V/C)
+        TCVWL = 0   %   Area dependence of TCV (m^2*V/C)
+        %  Flicker Noise
+        KF = 0      %   Flicker noise factor (J)
+        AF = 1      %   Frequency exponent for flicker noise
+        EF = 2      %   Transconductance exponent for flicker noise
+        KGFN = 0    %   Gate flicker noise factor
+        %  Parameters for source side junction diode
+        NJS = 1     %   Slope factor for parasitic diodes (source)
+        JSS = 0     %   Area component of diode current (source) (A/m^2)
+        JSSWS = 0   %   Perimeter component of diode current (source) (A/m)
+        JSSWGS = 0  %   Gate side component of diode current (source) (A/m)
+        MJS = 0.9   %   Area exponent of diode capacitance (source)
+        MJSWS = 0.7 %   Perimeter exponent of diode capacitance (source)
+        MJSWGS = 0.7 %  Gate side exponent of diode capacitance (source)
+        PBS = 0.8   %   Area parameter of diode capacitance (source) (V)
+        PBSWS = 0.6 %   Perimeter parameter of diode capacitance (source) (V)
+        PBSWGS = 0.6 %  Gate side parameter of diode capacitance (source) (V)
+        CJS = 0     %   Area component of diode capacitance (source) (F/m^2)
+        CJSWS = 0   %   Perimeter component of diode capacitance (source) (F/m)
+        CJSWGS = 0  %   Gate side component of diode capacitance (source) (F/m)
+        BVS = 10    %   Breakdown Voltage (source) (V)
+        XJBVS = 0   %   Breakdown effect coeffcient (source)
+        XTIS = 3    %   Temperature dependence of diode (source)
+        JTSS = 0    %   Area component of trap-assisted current (source) (A/m^2)
+        JTSWS = 0   %   Perimeter component of trap-assisted current (source) (A/m)
+        JTSWGS = 0  %   Gate side component of trap-assisted current (source) (A/m)
+        XTSS = 0    %   Temperature dependence of area component of trap-assisted current (source)
+        XTSSWS = 0  %   Temperature dependence of Perimeter component of trap-assisted current (source)
+        XTSSWGS = 0 %   Temperature dependence of Gate side component of trap-assisted current (source)
+        NJTSS = 1   %   Area slope factor of trap-assisted current (source)
+        NJTSSWS = 1 %   Perimeter slope factor of trap-assisted current (source)
+        NJTSSWGS = 1 %  Gate side slope factor of trap-assisted current (source)
+        VTSS = 0    %   Area voltage factor of trap-assisted current (source) (V)
+        VTSSWS = 0  %   Perimeter voltage factor of trap-assisted current (source) (V)
+        VTSSWGS = 0 %   Gate side voltage factor of trap-assisted current (source) (V)
+        TNJTSS = 0  %   Temperature dependence of NJTSS
+        TNJTSSWS = 0 %  Temperature dependence of NJTSSWS
+        TNJTSSWGS = 0 % Temperature dependence of NJTSSWGS
+        %  Parameters for both junction diodes
+        GMIN = 0    %   Minimum conductance of diode (source and drain) (A/V)
+        TCJ = 0     %   Temperature dependence of CJS and CJD (1/C)
+        TCJSW = 0   %   Temperature dependence of CJSWS and CJSWD (1/C)
+        TCJSWG = 0  %   Temperature dependence of CJSWGS and CJSWGD (1/C)
+        TPB = 0     %   Temperature dependence of PBS and PBD (V/C)
+        TPBSW = 0   %   Temperature dependence of PBSWS and PBSWD (V/C)
+        TPBSWG = 0  %   Temperature dependence of PBSWGS and PBSWGD (V/C)
+        %  Parameters for drain side junction diode
+        XJD = 1     %   Slope factor for drain diode
+        JSD = 0     %   Area component of drain diode current (A/m^2)
+        JSSWD = 0   %   Perimeter component of drain diode current (A/m)
+        JSSWGD = 0  %   Gate side component of drain diode current (A/m)
+        MJD = 0.9   %   Area exponent of drain diode capacitance
+        MJSWD = 0.7 %   Perimeter exponent of drain diode capacitance
+        MJSWGD = 0.7 %  Gate side exponent of drain diode capacitance
+        PBD = 0.8   %   Area parameter of drain diode capacitance (V)
+        PBSWD = 0.6 %   Perimeter parameter of drain diode capacitance (V)
+        PBSWGD = 0.6 %  Gate side parameter of drain diode capacitance (V)
+        CJD = 0     %   Area component of drain diode capacitance (F/m^2)
+        CJSWD = 0   %   Perimeter component of drain diode capacitance (F/m)
+        CJSWGD = 0  %   Gate side component of drain diode capacitance (F/m)
+        BVD = 10    %   Breakdown Voltage of drain diode (V)
+        XJBVD = 0   %   Breakdown effect coefficient of drain diode
+        XTID = 3    %   Temperature dependence of drain diode
+        JTSD = 0    %   Area component of trap-assisted current (drain) (A/m^2)
+        JTSWD = 0   %   Perimeter component of trap-assisted current (drain) (A/m)
+        JTSWGD = 0  %   Gate side component of trap-assisted current (drain) (A/m)
+        XTSD = 0    %   Temperature dependence of area component of trap-assisted drain diode current
+        XTSSWD = 0  %   Temperature dependence of Perimeter component of trap-assisted drain diode current
+        XTSSWGD = 0 %   Temperature dependence of Gate side component of trap-assisted drain diode current
+        NJTSD = 1   %   Area slope factor of trap-assisted current (drain)
+        NJTSSWD = 1 %   Perimeter slope factor of trap-assisted current (drain)
+        NJTSSWGD = 1 %  Gate side slope factor of trap-assisted current (drain)
+        VTSD = 0    %   Area voltage factor of trap-assisted current (drain) (V)
+        VTSSWD = 0  %   Perimeter voltage factor of trap-assisted current (drain) (V)
+        VTSSWGD = 0 %   Gate side voltage factor of trap-assisted current (drain) (V)
+        TNJTSD = 0  %   Temperature dependence of NJTSD
+        TNJTSSWD = 0 %  Temperature dependence of NJTSSWD
+        TNJTSSWGD = 0 % Temperature dependence of NJTSSWGD
+        %  Typical Spice Model
+        HDIF = 0    %   Half length of active area (m)
+        RSH = 0     %   Square resistance of active area (Ohm/sr)
+        LDIF = 0    %   Length of the lightly doped area (LDD) (m)
+        RS = 0      %   LDD Source series resistance (Ohm/sr)
+        RD = 0      %   LDD Drain series resistance (Ohm/sr)
+        %  Non-Geometrical Approach
+        RLX = -1    %   Series resistance (symmetric model) (Ohm/m)
+        RSX = -1    %   Source series resistance (asymmetric model) (Ohm/m)
+        RDX = -1    %   Drain series resistance (asymmetric model) (Ohm/m)
+        %  Overlap and Outer fringing Capacitances
+        LOV = 20e-9 %   Length of the overlap area (m)
+        GAMMAOV = 1.6 % Body effect coefficient of the overlap area (V^1/2)
+        GAMMAGOV = 10 % Body effect coefficient of the gate for the overlap area (V^1/2)
+        VFBOV = 0   %   Flat-band voltage of the overlap area (V)
+        VOV = 1     %   Bias coefficient for overlap capacitance
+        CGSO = 0    %   Gate to source outer fringing capacitance (F/m)
+        CGDO = 0    %   Gate to drain outer fringing capacitance (F/m)
+        CGBO = 0    %   Gate to bulk outer fringing capacitance (F/m)
+        %  Gate and Substrate Resistances
+        GC = 1      %   Gate contacts (single sided = 1, double sided = 2)
+        RGSH = 3    %   Gate square resistance (Ohm/sr)
+        KRGL1 = 0   %   Length scaling of Gate resistance (1/m^2)
+        RINGTYPE = 1 %  Type of guard ring (bulk contacts) (three sides/horse shoe: 1, two sides or symmetric: 2)
+        RBWSH = 3e-3 %  Inner-bulk to external bulk resistance (Ohm/m)
+        RBN = 0     %   Inner-bulk to external bulk resistance per finger (for RINGTYPE=1) (Ohm)
+        RDSBSH = 1e3 %  Drain to source substrate sheet resistance (Ohm/sr)
+        RSBWSH = 1e-3 % Inner-bulk source side to external bulk resistance (Ohm/m)
+        RSBN = 0    %   Inner-bulk source side to external bulk resistance per finger (for RINGTYPE=1) (Ohm)
+        RDBWSH = 1e-3 % Inner-bulk drain side to external bulk resistance (Ohm/m)
+        RDBN = 0    %   Inner-bulk drain side to external bulk resistance per finger (for RINGTYPE=1) (Ohm)
+        %  Temperature Scaling of Extrinsic Resistors
+        TR = 0      %   First order temperature coefficient of resistors (Ohm/C)
+        TR2 = 0     %   Second order temperature coecient of resistors (Ohm/C^2)
         %  prefixes
         prefixes = struct( ...
             'm' , 1e-3 , ...
