@@ -1,0 +1,16 @@
+.SYM gm1 ro1 gm2 ro2 gm3 ro3 C1 Cc CL
+.NODE 1 Vi Input Voltage
+.NODE 2 Imos1d Internal Current
+.NODE 3 Vmos1d Internal Voltage
+.NODE 4 Imos3d Internal Current
+.NODE 5 Vmos3d Internal Voltage
+.NODE 6 Imos2d Internal Current
+.NODE 7 Vo Output Voltage
+.EDGE E1 1 2 GM = -gm1
+.EDGE E2 2 3 Z = ro1//((ro3+1/(s*C1))/(1+gm3*ro3))//(1/(s*Cc))
+.EDGE E3 3 4 GM = gm3
+.EDGE E4 4 5 Z = ro3//(1/(s*C1))
+.EDGE E5 5 6 Gm = -gm2
+.EDGE E6 3 6 Gm = s*Cc
+.EDGE E7 6 7 Z = ro2//(1/(s*Cc))//(1/(s*CL))
+.EDGE E8 7 2 Gm = s*Cc

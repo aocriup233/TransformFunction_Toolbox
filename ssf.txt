@@ -1,0 +1,14 @@
+.SYM gm1 ro1 Rd Cd gm2 ro2 CL
+.NODE 1 Vi Input Voltage
+.NODE 2 Vmos1s Internal Voltage
+.NODE 3 Imos1d Internal Current
+.NODE 4 Vmos1d Internal Voltage
+.NODE 5 Imos2d Internal Current
+.NODE 6 Vo Output Voltage
+.EDGE E1 1 2 AV = 1
+.EDGE E2 2 3 gm = (1+gm1*ro1)/(ro1+(1/(s*Cd)//Rd)
+.EDGE E3 3 4 Z = (1/(s*Cd)//Rd
+.EDGE E4 4 5 gm = -gm2
+.EDGE E5 3 5 AI = 1
+.EDGE E6 5 6 Z = ro2//(1/(s*CL))
+.EDGE E7 6 2 AV = -1
