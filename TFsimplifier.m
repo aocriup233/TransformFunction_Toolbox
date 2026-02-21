@@ -74,7 +74,13 @@ classdef TFsimplifier < handle
             z = obj.extractSymZeros(TF_sym, var);
             for i = 1:length(p)
                 [pnum, pden] = numden(p(i));
+                if obj.usingAutoOrder
+                    [~, level] = obj.getMaxOrder(pnum);
+                end
                 pnum = obj.simplifyExpr(pnum, level);
+                if obj.usingAutoOrder
+                    [~, level] = obj.getMaxOrder(pden);
+                end
                 pden = obj.simplifyExpr(pden, level);
                 p(i) = simplify(pnum / pden);
             end
@@ -108,15 +114,20 @@ classdef TFsimplifier < handle
             % level == 'R' , keep 'R'
             if nargin < 3, level = 'gmro'; end
             exprStr = char(tfexpr);
+            % for getMaxOrder
+            if ~ischar(level)
+                expr = simplifyToOrder(obj, exprStr, level);
+                return;
+            end
             switch level
                 case 'gmro++'
-                    expr = simplifyToOrder(obj, exprStr, 3);
+                    expr = simplifyToOrder(obj, exprStr, 7);
                 case 'gmro'
                     expr = simplifyToOrder(obj, exprStr, 2);
                 case 'ro'
-                    expr = simplifyToOrder(obj, exprStr, 1);
+                    expr = simplifyToOrder(obj, exprStr, 5);
                 case 'R'
-                    expr = simplifyToOrder(obk, exprStr, 0.5);
+                    expr = simplifyToOrder(obj, exprStr, 3);
                 otherwise
                     expr = tfexpr;
             end
@@ -142,12 +153,15 @@ classdef TFsimplifier < handle
         end
         function order = calculateTermOrder(obj, term)
             order = 0;
-            gm_matches = regexp(term, 'gm\d*', 'match');
-            order = order + length(gm_matches);
-            ro_matches = regexp(term, 'ro\d*', 'match');
-            order = order + length(ro_matches);
-            R_matches = regexp(term, 'R\d*', 'match');
-            order = order + 0.5*length(R_matches);
+            %  gm ~ mS (1e-3)
+            gm_matches = regexp(term, 'gm\w*', 'match');
+            order = order + -3*length(gm_matches);
+            %  ro ~ 10KOhm (1e5)
+            ro_matches = regexp(term, 'ro\w*', 'match');
+            order = order + 5*length(ro_matches);
+            %  R ~ KOhm (1e3)
+            R_matches = regexp(term, 'R(?!o)\w*', 'match');
+            order = order + 3*length(R_matches);
         end
         function terms = splitTerms(obj, exprStr)
             terms = {};
@@ -176,7 +190,7 @@ classdef TFsimplifier < handle
         function [maxOrder, orderLevel] = getMaxOrder(obj, expr)
             expr = char(expr);
             terms = splitTerms(obj, expr);
-            maxOrder = 0;
+            maxOrder = -3;
             for i = 1:length(terms)
                 order = obj.calculateTermOrder(terms{i});
                 if  order > maxOrder
