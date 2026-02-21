@@ -1,0 +1,15 @@
+.SYM gm1 ro1 gm2 ro2 gm3 ro3 gm4 ro4 
+.NODE 1 Iin Input Current
+.NODE 2 Imos1d Internal Current
+.NODE 3 Vmos3g Internal Voltage
+.NODE 4 Vmos2d Internal Voltage
+.NODE 5 Imos2d Internal Current
+.NODE 6 Io Output Current
+.EDGE E1 1 2 AI = 1
+.EDGE E2 2 3 Z = ro1
+.EDGE E3 3 5 gm = gm3
+.EDGE E4 5 6 AI = 1
+.EDGE E5 6 4 Z = 1/gm2
+.EDGE E6 4 3 AV = -1
+.EDGE E7 4 5 gm = -1/ro3
+.EDGE E8 4 2 gm = -gm1
